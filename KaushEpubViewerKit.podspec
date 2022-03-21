@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'KaushEpubViewerKit'
-  s.version          = '1.0.0'
+  s.version          = '2.0.0'
   s.summary          = 'A epub reader flutter plugin project.'
   s.description      = <<-DESC
 An open source epub reader plugin written in swift
@@ -11,7 +11,7 @@ An open source epub reader plugin written in swift
   s.homepage         = 'https://github.com/kaushikgodhani/EpubViewerKit.git'
   s.license          = "MIT"
   s.author           = { 'kaushikgodhani' => 'kaushik64494@gmail.com' }
-  s.source           = { :git => 'https://github.com/kaushikgodhani/EpubViewerKit.git', :tag=>'1.0.0' }
+  s.source           = { :git => 'https://github.com/kaushikgodhani/EpubViewerKit.git', :tag=>'2.0.0' }
   
   s.swift_version = '4.2'
   s.requires_arc  = true

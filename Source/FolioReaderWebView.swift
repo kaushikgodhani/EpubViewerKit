@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import WebKit
 
 /// The custom WebView used in each page
-open class FolioReaderWebView: UIWebView {
+open class FolioReaderWebView: WKWebView {
     var isColors = false
     var isShare = false
     var isOneWord = false
@@ -30,15 +31,34 @@ open class FolioReaderWebView: UIWebView {
         guard let readerContainer = readerContainer else { return FolioReader() }
         return readerContainer.folioReader
     }
-
-    override init(frame: CGRect) {
-        fatalError("use init(frame:readerConfig:book:) instead.")
+    
+    fileprivate var webConfig: WKWebViewConfiguration{
+        let config = WKWebViewConfiguration()
+        if #available(iOS 10.0, *) {
+            config.dataDetectorTypes = .link
+        } else {
+            // Fallback on earlier versions
+        }
+        return config
     }
 
     init(frame: CGRect, readerContainer: FolioReaderContainer) {
         self.readerContainer = readerContainer
-
-        super.init(frame: frame)
+        let config = WKWebViewConfiguration()
+        if #available(iOS 10.0, *) {
+            config.dataDetectorTypes = .link
+        } else {
+            // Fallback on earlier versions
+        }
+        config.preferences.javaScriptEnabled = true
+        config.suppressesIncrementalRendering = true
+        config.preferences.minimumFontSize = 18
+        config.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
+        config.allowsInlineMediaPlayback = true
+        config.allowsAirPlayForMediaPlayback = true
+        config.allowsPictureInPictureMediaPlayback = true
+        
+        super.init(frame: frame, configuration: config)
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -169,19 +189,19 @@ open class FolioReaderWebView: UIWebView {
     @objc func highlightWithNote(_ sender: UIMenuController?) {
         let highlightAndReturn = js("highlightStringWithNote('\(HighlightStyle.classForStyle(self.folioReader.currentHighlightStyle))')")
         let jsonData = highlightAndReturn?.data(using: String.Encoding.utf8)
-        
+
         do {
             let json = try JSONSerialization.jsonObject(with: jsonData!, options: []) as! NSArray
             let dic = json.firstObject as! [String: String]
             guard let startOffset = dic["startOffset"] else { return }
             guard let endOffset = dic["endOffset"] else { return }
-            
+
             self.clearTextSelection()
-            
+
             guard let html = js("getHTML()") else { return }
             guard let identifier = dic["id"] else { return }
             guard let bookId = (self.book.name as NSString?)?.deletingPathExtension else { return }
-            
+
             let pageNumber = folioReader.readerCenter?.currentPageNumber ?? 0
             let match = Highlight.MatchingHighlight(text: html, id: identifier, startOffset: startOffset, endOffset: endOffset, bookId: bookId, currentPage: pageNumber)
             if let highlight = Highlight.matchHighlight(match) {
