@@ -2,16 +2,16 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 Pod::Spec.new do |s|
-  s.name             = 'EpubViewerKit'
-  s.version          = '0.1.3'
+  s.name             = 'DudeEpubViewerKit'
+  s.version          = '1.1.1'
   s.summary          = 'A epub reader flutter plugin project.'
   s.description      = <<-DESC
 An open source epub reader plugin written in swift
                        DESC
-  s.homepage         = 'https://github.com/JideGuru/EpubViewerKit.git'
+  s.homepage         = 'https://github.com/dudecoderr/EpubViewerKit.git'
   s.license          = "MIT"
-  s.author           = { 'jideguru' => 'guruliciousjide@gmail.com' }
-  s.source           = { :git => 'https://github.com/JideGuru/EpubViewerKit.git', :tag=>'0.1.2' }
+  s.author           = { 'dudecoder' => 'dudecoderr@gmail.com' }
+  s.source           = { :git => 'https://github.com/dudecoderr/EpubViewerKit.git', :tag=>'1.1.1' }
   
   s.swift_version = '4.2'
   s.requires_arc  = true
@@ -40,7 +40,7 @@ An open source epub reader plugin written in swift
   s.dependency 'ZFDragableModalTransition', '0.6'
   s.dependency 'AEXML', '4.6.0'
   s.dependency 'FontBlaster', '5.1.1'
-  s.dependency 'RealmSwift', '5.5.1'
+  s.dependency 'RealmSwift'
   
   s.ios.deployment_target = '9.0'
 end
