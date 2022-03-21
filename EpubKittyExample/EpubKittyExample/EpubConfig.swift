@@ -6,7 +6,7 @@
 //
 import Foundation
 import UIKit
-import EpubViewerKit
+import KaushEpubViewerKit
 
 class EpubConfig: NSObject {
     

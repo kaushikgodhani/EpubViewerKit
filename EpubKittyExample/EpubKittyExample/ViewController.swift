@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import EpubViewerKit
+import KaushEpubViewerKit
 
 class ViewController: UIViewController,FolioReaderPageDelegate{
     let folioReader = FolioReader()
